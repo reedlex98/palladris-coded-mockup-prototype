@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from '../assets/logo.svg'
 import { Container, Hero, HeroHeader, Navbar, NavbarMenu, NavbarItem, NavbarBrand, NavbarEnd } from 'bloomer'
 const Header : React.FC = () => {
     return (
@@ -6,8 +7,8 @@ const Header : React.FC = () => {
             <HeroHeader>
                 <Container> 
                     <Navbar>
-                        <NavbarBrand>
-                            <NavbarItem  className="navbar-brand">Palladris Brokers</NavbarItem>
+                        <NavbarBrand className="logo-container">
+                            <img src={logo} alt="palladris-logo"/>
                         </NavbarBrand>
                         <NavbarMenu>
                             <NavbarEnd>

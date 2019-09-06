@@ -1,13 +1,16 @@
 import React from 'react';
 import Header from './components/Header';
-import GroupButton from './components/GroupButton.jsx'
+import GroupButton from './components/GroupButton'
+import { Container} from 'bloomer'
 
 const App: React.FC = () => {
   return (
-    <App>
+    <div>
       <Header/>
-      <GroupButton/>
-    </App>
+      <Container className="app-container">
+        <GroupButton focusedId={0} />
+      </Container>
+    </div>
   );
 }
 

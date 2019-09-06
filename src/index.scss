@@ -1,2 +1,17 @@
 @import "./variables";
 @import "./components/Header";
+@import "./App";
+
+body{
+    background-image: 
+    linear-gradient(
+      rgba(60, 100, 144, 0.7), 
+      rgba(60, 100, 144, 0.7)
+    ),
+    url(./assets/background-circles.svg);
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: 500px;
+    height:100vh;
+    background-color: black;
+}

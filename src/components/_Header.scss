@@ -6,14 +6,14 @@
     padding: 0 15vw;
 }
 .navbar-item{
-    color: $light-text-color ;
-    font-size: .75em;
-    font-weight: bolder;
-}
-.navbar-brand{
-    color: $light-background;
-    width: 30px;
-}
-.navbar-brand, .navbar-item{
+    color: $light-background ;
+    font-size: .7em;
     text-transform: uppercase
+}
+.logo-container{
+    width: 150px;
+    img{
+        height: 100%;
+        width: 100%
+    }
 }
