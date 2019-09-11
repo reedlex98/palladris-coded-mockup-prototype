@@ -1,14 +1,10 @@
 import React from 'react'
 import { Button } from 'bloomer'
 
-type GroupButtonProps = {
-    hoveredId: number
-}
-
-const GroupButton = ({ hoveredId } : GroupButtonProps) => {
+const GroupButton = ( props : GroupButtonProps) => {
     return <div style={{alignSelf: "center"}}>
-        <Button isSize="small" isColor="white" isHovered={hoveredId === 0} isOutlined>Market Data</Button>
-        <Button isSize="small" isColor="white" isHovered={hoveredId === 1} isOutlined>Blotter</Button>
+        <Button id="marketDataButton" name="marketData" isSize="small" onClick={props.handleNavigation} isColor="white" isHovered={props.activeSection === "marketData"} isOutlined>Market Data</Button>
+        <Button id="blotterButton" name="blotter" isSize="small" onClick={props.handleNavigation} isColor="white" isHovered={props.activeSection === "blotter"} isOutlined>Blotter</Button>
     </div>
 }
 

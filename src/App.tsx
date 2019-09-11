@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import Header from './components/Header';
+import Provider from './components/Provider'
 import GroupButton from './components/GroupButton'
 import { Container, Box } from 'bloomer'
 import Chart from './components/Chart';
+import Pair from './components/Pair';
 
-class App extends React.Component<{}, {dataArray: datasetRow[], isFetching: boolean}> {
+class App extends React.Component<{}, AppState> {
 
-  constructor(props : {}) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       dataArray: [],
-      isFetching: true
+      isFetching: true,
+      activeSection: 'marketData',
+      providers: [],
+      pair: '' 
     }
+  }
+  handleChange = (e : FormEvent<HTMLElement>) => {
+    const {name, value} = e.target as any
+    this.setState({
+      [name]:value
+    } as any)
+  }
+
+  handleChangeProviders = (providers : string[]) => {
+    this.setState(prevState => ({providers}))
+  }
+
+  handleNavigation = (e : React.MouseEvent<HTMLButtonElement>) => {
+    const {name} = e.target as HTMLButtonElement
+    this.setState(prevState => ({activeSection: name}))
   }
 
   componentDidMount() {
-    const dataArray : datasetRow[] = [];
     fetch("/dataset.csv")
       .then(response => response.text())
       .then(data => {
+        const dataArray: datasetRow[] = [];
         const table = data.split("\n").slice(1);
         table.forEach(row => {
           const columns = row.split(",");
@@ -30,7 +50,6 @@ class App extends React.Component<{}, {dataArray: datasetRow[], isFetching: bool
             qtd: +columns[4]
           });
         });
-        
         this.setState((previous) => {
           return {
             dataArray,
@@ -45,9 +64,13 @@ class App extends React.Component<{}, {dataArray: datasetRow[], isFetching: bool
       <div>
         <Header />
         <Container className="app-container">
-          <GroupButton hoveredId={0} />
+          <GroupButton activeSection={this.state.activeSection} handleNavigation={this.handleNavigation} />
           <Box className="market-container">
-            <Chart chartData={this.state.dataArray} chartTitle="Price vs Time"/>
+            <form className="market-data-form">
+              <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders}/>
+              <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair))]} handleChange={this.handleChange}/>
+            </form>
+            <Chart chartData={this.state.dataArray} providers={this.state.providers} chartTitle="Price vs Time" />
           </Box>
         </Container>
       </div>

@@ -2,6 +2,7 @@
 @import "./Header";
 @import "./App";
 @import './Chart';
+@import './Form';
 
 body{
     background-image: 
@@ -9,7 +10,7 @@ body{
       rgba(60, 100, 144, 0.7), 
       rgba(60, 100, 144, 0.7)
     ),
-    url(./assets/background-circles.svg);
+    url(../assets/background-circles.svg);
     background-repeat: repeat;
     background-size: cover;
     background-position: 500px;
