@@ -5,3 +5,15 @@
     justify-content: center;
     margin-top: 30px;
 }
+
+.market-container{
+    margin-top: 15px;
+    width: 70vw;
+    min-height: 73vh;
+    background-color: $background-color-app;
+    box-shadow: 0 0 30px $background-color-header;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
