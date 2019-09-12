@@ -68,9 +68,9 @@ class App extends React.Component<{}, AppState> {
           <Box className="market-container">
             <form className="market-data-form">
               <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders}/>
-              <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair))]} handleChange={this.handleChange}/>
+              <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange}/>
             </form>
-            <Chart chartData={this.state.dataArray} providers={this.state.providers} chartTitle="Price vs Time" />
+            <Chart chartData={this.state.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
           </Box>
         </Container>
       </div>
