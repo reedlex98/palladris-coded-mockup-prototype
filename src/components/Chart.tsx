@@ -2,22 +2,37 @@ import React from 'react'
 import { Line } from 'react-chartjs-2'
 
 export default class Chart extends React.Component<ChartProps, {}> {
-    
+
     public static defaultProps = {
         providers: ['CBOE', 'BNDES', 'ABCDE'],
         lineColors: ['#912658', '#979031', '#6cdde7']
     }
 
+    twoZeroesFormat = ( timeValue : number) => timeValue > 9 ? timeValue : `0${timeValue}` 
+    
+    displayDatetime = (date: Date) => `${this.twoZeroesFormat(date.getHours())}:${this.twoZeroesFormat(date.getMinutes())}:${this.twoZeroesFormat(date.getSeconds())}`
+
+    applyFilters = ( arr: datasetRow[], filter:{ key: string, value: any, comparison: string }[]) => filter.reduce( (acc , cur) => acc.filter( row => cur.value === 'All' ? true : cur.comparison === '===' ? row[cur.key] === cur.value : cur.comparison === ">" ?row[cur.key] > cur.value : row[cur.key] < cur.value) , arr)
+
+    uniqueArray = (arr: datasetRow[], propToBeShown: string, filter?: { key: string, value: any, comparison: string }[]) => { 
+        if(filter){
+            arr = this.applyFilters(arr,filter)
+        }
+        return propToBeShown === 'date' ? [...new Set(arr.map( row => row[propToBeShown].toString()))].map(value => new Date(value)).sort((a,b) => (a as any) - (b as any)).map( value => this.displayDatetime(value)) : [...new Set(arr.map( row => row[propToBeShown]))]
+    }
+
     render() {
         let chart = null
-        
+
+        // console.log(this.props.providers.reduce( (acc, provider) => this.applyFilters(this.props.chartData, [{key: 'pair', value: this.props.pair, comparison: '===' }, {key: 'provider', value: provider, comparison: '==='}])))
+
         const data = {
-            labels: this.props.pair === 'All' ? [ ...new Set(this.props.chartData.map(row => row.date.split('T')[1]))] : [ ...new Set(this.props.chartData.filter(row => row.pair === this.props.pair).map(row => row.date.split('T')[1]))],
+            labels: this.uniqueArray( this.props.chartData, 'date', [{key: 'pair', value: this.props.pair, comparison: '==='}]),
             fontColor: "#fefefe",
             datasets: this.props.providers.map(provider => (
                 {
                     label: provider,
-                    data: this.props.chartData.filter(row => this.props.pair !== 'All' ? row.provider === provider && row.pair === this.props.pair : row.provider === provider).map(row => row.price),
+                    data: this.applyFilters(this.props.chartData, [{key: 'pair', value: this.props.pair, comparison: '===' }, {key: 'provider', value: provider, comparison: '==='}]).map(value => value.price),
                     fill: false,
                     lineTension: 0.075,
                     borderWidth: 2,
@@ -27,7 +42,7 @@ export default class Chart extends React.Component<ChartProps, {}> {
                 }
             ))
         }
-        
+
         if (this.props.chartData.length > 0) {
             chart = <Line
                 data={data}

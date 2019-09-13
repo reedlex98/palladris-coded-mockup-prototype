@@ -7,8 +7,9 @@
   .fields{
     width: 25%;
   }
-  .react-tagsinput {
-    width: 100%;
+  .react-tagsinput, .input, #pair {
+    width: 150px;
+    min-height: 35px;
     border-radius: 5px;
   }
   .react-tagsinput-tag {

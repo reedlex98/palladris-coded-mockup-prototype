@@ -1,9 +1,10 @@
-declare type datasetRow = {
+declare interface datasetRow {
     provider: string
     pair: string
-    date: string
+    date: Date
     price: number
     qtd: number
+    [key:string] : string | number | Date
 }
 declare interface ChartProps {
     chartData: datasetRow[]

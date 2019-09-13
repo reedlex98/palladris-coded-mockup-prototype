@@ -5,6 +5,7 @@ import GroupButton from './components/GroupButton'
 import { Container, Box } from 'bloomer'
 import Chart from './components/Chart';
 import Pair from './components/Pair';
+import Datepicker from './components/Datepicker';
 
 class App extends React.Component<{}, AppState> {
 
@@ -18,6 +19,7 @@ class App extends React.Component<{}, AppState> {
       pair: '' 
     }
   }
+
   handleChange = (e : FormEvent<HTMLElement>) => {
     const {name, value} = e.target as any
     this.setState({
@@ -34,6 +36,10 @@ class App extends React.Component<{}, AppState> {
     this.setState(prevState => ({activeSection: name}))
   }
 
+  maxDateFromArray = (dates : Date[]) => dates.reduce( (a,b) => a > b ? a : b)
+  
+  minDateFromArray = (dates : Date[]) => dates.reduce( (a,b) => a < b ? a : b)
+  
   componentDidMount() {
     fetch("/dataset.csv")
       .then(response => response.text())
@@ -45,7 +51,7 @@ class App extends React.Component<{}, AppState> {
           dataArray.push({
             provider: columns[0],
             pair: columns[1],
-            date: columns[2],
+            date: new Date(columns[2]),
             price: +columns[3],
             qtd: +columns[4]
           });
@@ -60,6 +66,9 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
+    // if(!this.state.isFetching){
+    // console.log(this.minDateFromArray(this.state.dates))
+    // console.log(this.maxDateFromArray(this.state.dates))}
     return (
       <div>
         <Header />
@@ -69,6 +78,8 @@ class App extends React.Component<{}, AppState> {
             <form className="market-data-form">
               <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders}/>
               <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange}/>
+              <Datepicker title="Start" handleChange={this.handleChange}/>
+              <Datepicker title="End" handleChange={this.handleChange}/>
             </form>
             <Chart chartData={this.state.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
           </Box>
