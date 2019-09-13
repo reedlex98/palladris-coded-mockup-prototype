@@ -12,4 +12,6 @@ declare interface ChartProps {
     pair: string
     lineColors: string[]
     chartTitle: string
+    maxDate: Date,
+    minDate: Date
 }

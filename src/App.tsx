@@ -16,30 +16,41 @@ class App extends React.Component<{}, AppState> {
       isFetching: true,
       activeSection: 'marketData',
       providers: [],
-      pair: '' 
+      pair: '',
+      maxDefaultDate: new Date(),
+      minDefaultDate: new Date(),
+      maxSearchDate: new Date(),
+      minSearchDate: new Date()
     }
   }
 
-  handleChange = (e : FormEvent<HTMLElement>) => {
-    const {name, value} = e.target as any
+  handleDateChange = (date: Date, field: string) => {
+    console.log(this.state.minSearchDate)
     this.setState({
-      [name]:value
+      [field]:date
     } as any)
   }
 
-  handleChangeProviders = (providers : string[]) => {
-    this.setState(prevState => ({providers}))
+  handleChange = (e: FormEvent<HTMLElement>) => {
+    const { name, value } = e.target as any
+    this.setState({
+      [name]: value
+    } as any)
   }
 
-  handleNavigation = (e : React.MouseEvent<HTMLButtonElement>) => {
-    const {name} = e.target as HTMLButtonElement
-    this.setState(prevState => ({activeSection: name}))
+  handleChangeProviders = (providers: string[]) => {
+    this.setState({ providers })
   }
 
-  maxDateFromArray = (dates : Date[]) => dates.reduce( (a,b) => a > b ? a : b)
-  
-  minDateFromArray = (dates : Date[]) => dates.reduce( (a,b) => a < b ? a : b)
-  
+  handleNavigation = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement
+    this.setState({ activeSection: name })
+  }
+
+  maxDateFromArray = (dates: Date[]) => dates.reduce((a, b) => a > b ? a : b)
+
+  minDateFromArray = (dates: Date[]) => dates.reduce((a, b) => a < b ? a : b)
+
   componentDidMount() {
     fetch("/dataset.csv")
       .then(response => response.text())
@@ -59,7 +70,9 @@ class App extends React.Component<{}, AppState> {
         this.setState((previous) => {
           return {
             dataArray,
-            isFetching: !previous.isFetching
+            isFetching: !previous.isFetching,
+            maxDefaultDate: this.maxDateFromArray(dataArray.map(row => row.date)),
+            minDefaultDate: this.minDateFromArray(dataArray.map(row => row.date))
           };
         });
       });
@@ -69,19 +82,30 @@ class App extends React.Component<{}, AppState> {
     // if(!this.state.isFetching){
     // console.log(this.minDateFromArray(this.state.dates))
     // console.log(this.maxDateFromArray(this.state.dates))}
+    // return <Datepicker></Datepicker>
     return (
       <div>
         <Header />
         <Container className="app-container">
           <GroupButton activeSection={this.state.activeSection} handleNavigation={this.handleNavigation} />
           <Box className="market-container">
-            <form className="market-data-form">
-              <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders}/>
-              <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange}/>
-              <Datepicker title="Start" handleChange={this.handleChange}/>
-              <Datepicker title="End" handleChange={this.handleChange}/>
-            </form>
-            <Chart chartData={this.state.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
+            {this.state.isFetching
+              ? 'Loading data...'
+              : <React.Fragment>
+                <form className="market-data-form">
+                  <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders} />
+
+                  <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange} />
+
+                  <Datepicker title="Start" handleChange={this.handleDateChange} name={'minDefaultDate'} dateValue={this.state.minDefaultDate} minDate={this.state.minDefaultDate} maxDate={this.state.maxDefaultDate}/>
+
+                  <Datepicker title="End" handleChange={this.handleDateChange} name={'maxDefaultDate'} dateValue={this.state.maxDefaultDate} minDate={this.state.minDefaultDate} maxDate={this.state.maxDefaultDate} />
+
+                </form>
+                <Chart minDate={this.state.minDefaultDate} maxDate={this.state.maxDefaultDate} chartData={this.state.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
+
+              </React.Fragment>
+            }
           </Box>
         </Container>
       </div>
