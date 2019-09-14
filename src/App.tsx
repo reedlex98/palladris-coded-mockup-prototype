@@ -1,33 +1,30 @@
 import React, { FormEvent } from 'react';
 import Header from './components/Header';
-import Provider from './components/Provider'
 import GroupButton from './components/GroupButton'
+import Blotter from './components/Blotter';
+import MarketData from './components/MarketData'
 import { Container, Box } from 'bloomer'
-import Chart from './components/Chart';
-import Pair from './components/Pair';
-import Datepicker from './components/Datepicker';
+import { Route, BrowserRouter as Router } from 'react-router-dom'
 
 class App extends React.Component<{}, AppState> {
 
   constructor(props: {}) {
     super(props);
     this.state = {
+      dataHeader: [],
       dataArray: [],
       isFetching: true,
       activeSection: 'marketData',
       providers: [],
       pair: '',
       maxDefaultDate: new Date(),
-      minDefaultDate: new Date(),
-      maxSearchDate: new Date(),
-      minSearchDate: new Date()
+      minDefaultDate: new Date()
     }
   }
 
   handleDateChange = (date: Date, field: string) => {
-    console.log(this.state.minSearchDate)
     this.setState({
-      [field]:date
+      [field]: date
     } as any)
   }
 
@@ -56,6 +53,7 @@ class App extends React.Component<{}, AppState> {
       .then(response => response.text())
       .then(data => {
         const dataArray: datasetRow[] = [];
+        const dataHeader = data.split("\n")[0].split(',');
         const table = data.split("\n").slice(1);
         table.forEach(row => {
           const columns = row.split(",");
@@ -69,6 +67,7 @@ class App extends React.Component<{}, AppState> {
         });
         this.setState((previous) => {
           return {
+            dataHeader,
             dataArray,
             isFetching: !previous.isFetching,
             maxDefaultDate: this.maxDateFromArray(dataArray.map(row => row.date)),
@@ -79,34 +78,17 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    // if(!this.state.isFetching){
-    // console.log(this.minDateFromArray(this.state.dates))
-    // console.log(this.maxDateFromArray(this.state.dates))}
-    // return <Datepicker></Datepicker>
     return (
       <div>
         <Header />
-        <Container className="app-container">
-          <GroupButton activeSection={this.state.activeSection} handleNavigation={this.handleNavigation} />
-          <Box className="market-container">
-            {this.state.isFetching
-              ? 'Loading data...'
-              : <React.Fragment>
-                <form className="market-data-form">
-                  <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders} />
-
-                  <Pair pairsAvailable={[...new Set(this.state.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange} />
-
-                  <Datepicker title="Start" handleChange={this.handleDateChange} name={'minDefaultDate'} dateValue={this.state.minDefaultDate} minDate={this.state.minDefaultDate} maxDate={this.state.maxDefaultDate}/>
-
-                  <Datepicker title="End" handleChange={this.handleDateChange} name={'maxDefaultDate'} dateValue={this.state.maxDefaultDate} minDate={this.state.minDefaultDate} maxDate={this.state.maxDefaultDate} />
-
-                </form>
-                <Chart minDate={this.state.minDefaultDate} maxDate={this.state.maxDefaultDate} chartData={this.state.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
-
-              </React.Fragment>
-            }
-          </Box>
+        <Container className="page-container">
+          <Router>
+            <GroupButton activeSection={this.state.activeSection} handleNavigation={this.handleNavigation} />
+            <Box className="app-container">
+              <Route exact path="/" render={props => <MarketData {...props} appState={this.state} handleChange={this.handleChange} handleChangeProviders={this.handleChangeProviders} handleDateChange={this.handleDateChange} />} />
+              <Route path="/blotter" render={props => <Blotter {...props} appState={this.state} />} />
+            </Box>
+          </Router>
         </Container>
       </div>
     );

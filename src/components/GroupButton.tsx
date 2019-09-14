@@ -1,10 +1,15 @@
 import React from 'react'
 import { Button } from 'bloomer'
+import { Link } from 'react-router-dom'
 
 const GroupButton = ( props : GroupButtonProps) => {
-    return <div style={{alignSelf: "center"}}>
-        <Button id="marketDataButton" name="marketData" isSize="small" onClick={props.handleNavigation} isColor="white" isHovered={props.activeSection === "marketData"} isOutlined>Market Data</Button>
-        <Button id="blotterButton" name="blotter" isSize="small" onClick={props.handleNavigation} isColor="white" isHovered={props.activeSection === "blotter"} isOutlined>Blotter</Button>
+    return <div>
+        <Link to='/'>
+            <Button id="marketDataButton" name="marketData" isSize="small" onClick={props.handleNavigation} isColor="white" isHovered={props.activeSection === "marketData"} isOutlined>Market Data</Button>
+        </Link>
+        <Link to='/blotter'>
+            <Button id="blotterButton" name="blotter" isSize="small" onClick={props.handleNavigation} isColor="white" isHovered={props.activeSection === "blotter"} isOutlined>Blotter</Button>
+        </Link>
     </div>
 }
 

@@ -4,10 +4,6 @@
 @import './Chart';
 @import './Form';
 
-html{
-  height: 150vh
-}
-
 body{
     background-image: 
     linear-gradient(
@@ -18,6 +14,6 @@ body{
     background-repeat: repeat;
     background-size: cover;
     background-position: 500px;
-    height:100%;
     background-color: black;
+    min-height: 100vh
 }

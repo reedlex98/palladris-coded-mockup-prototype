@@ -7,7 +7,7 @@ const Datepicker = (props: {title: string, name: string, handleChange: Function,
         <Field>
             <Label>{props.title}</Label>
             <Control>
-                < DatePicker className="input" selected={props.dateValue} onChange={(date: any) => props.handleChange(date, props.name)}  minDate={props.minDate} maxDate={props.maxDate} showTimeSelect dateFormat="dd/MM/yyyy hh:mm"/>
+                < DatePicker className="input" selected={props.dateValue} onChange={(date: any) => props.handleChange(date, props.name)}  minDate={props.name === 'maxDefaultDate' && props.minDate } showTimeSelect dateFormat="dd/MM/yyyy hh:mm"/>
             </Control>
         </Field>
     )

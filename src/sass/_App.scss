@@ -1,4 +1,4 @@
-.app-container{
+.page-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,14 +6,20 @@
     margin-top: 30px;
 }
 
-.market-container{
+.app-container{
     margin-top: 15px;
-    width: 70vw;
-    min-height: 73vh;
+    width: 80vw;
+    min-height: 85vh;
+    max-height: 85vh;
+    overflow-y: scroll; 
     background-color: $background-color-app;
     box-shadow: 0 0 30px $background-color-header;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: space-around
+}
+
+.app-container::-webkit-scrollbar {
+    width: 0;
 }
