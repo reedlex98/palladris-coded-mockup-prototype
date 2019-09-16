@@ -1,23 +1,28 @@
 import React from 'react'
 import {Table} from 'bloomer'
-const BlotterTable = (props: {dataHeader: string[],dataArray: datasetRow[]}) => {
+import { BlotterProps } from '../docs/Interface';
+const BlotterTable = (props: BlotterProps) => {
     return (
-        <Table isBordered isNarrow>
+        <Table className='blotter-table'>
             <thead>
                 <tr>
-                    {props.dataHeader.map((headerValue, index) => <th key={index}>{headerValue}</th> )}
+                    <th>Date</th>
+                    <th>Pair</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Market Data Link</th>
                 </tr>
             </thead>
             <tbody>
-                {props.dataArray.map((row, index) => (
-                    <tr key={index+6}>
-                        <td key={index+1}>{row.provider}</td>
-                        <td key={index+2}>{row.pair}</td>
-                        <td key={index+3}>{row.date.toISOString()}</td>
-                        <td key={index+4}>{row.price}</td>
-                        <td key={index+5}>{row.qtd}</td>
+                {props.dataArray.map((row, index) => 
+                    <tr key={index}>
+                        <td>{row.date.toISOString().replace(/[TZ]/ig, ' ').replace(/-/g,'/')}</td>
+                        <td>{row.pair}</td>
+                        <td>{row.price}</td>
+                        <td>{row.qtd}</td>
+                        {/* <td>{row.provider}</td> */}
                     </tr>)
-                )}
+                }
             </tbody>
         </Table>
     )

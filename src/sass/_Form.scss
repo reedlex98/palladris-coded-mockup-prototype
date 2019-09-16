@@ -1,14 +1,14 @@
 .market-data-form {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
 
   width: 90%;
   .fields{
     width: 25%;
   }
-  .react-tagsinput, .input, #pair {
-    width: 150px;
+  .react-tagsinput, .input, .pair {
+    max-width: 200px;
     min-height: 35px;
     border-radius: 5px;
   }
@@ -31,5 +31,6 @@
   }
   .react-datepicker{
     min-width:330px;
+    right: 40px
   }
 }

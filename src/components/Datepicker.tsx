@@ -1,8 +1,9 @@
 import React from 'react'
 import { Field, Label, Control } from 'bloomer'
 import DatePicker from 'react-datepicker'
+import { DatepickerProps } from '../docs/Interface';
 
-const Datepicker = (props: {title: string, name: string, handleChange: Function, dateValue: Date, minDate: Date, maxDate: Date} ) => {
+const Datepicker = (props: DatepickerProps ) => {
     return (
         <Field>
             <Label>{props.title}</Label>
@@ -12,18 +13,5 @@ const Datepicker = (props: {title: string, name: string, handleChange: Function,
         </Field>
     )
 }
-// const Datepicker = (props: DatepickerProps) => {
-//     const timeStamp = (m: Date) => `${m.getFullYear}:${m.getMonth}:${m.getDay}T${m.getHours}:${m.getMinutes}`
-//     const min = timeStamp(props.min)
-//     const max = timeStamp(props.max)
-//     return (<Field>
-//         <Label>{props.title}</Label>
-//         <Control>
-//             {/* min={props.min} max={props.max}  */}
-//             <Input name="minSearchDate" type="datetime-local" className="input" onChange={props.handleChange} value={props.dateValue.toString()} min={min} max={max} />
-//         </Control>
-//     </Field>
-//     )
-// }
 
 export default Datepicker

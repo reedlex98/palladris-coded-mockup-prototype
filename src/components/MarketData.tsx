@@ -1,22 +1,53 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 import Provider from './Provider'
 import Chart from './Chart';
 import Pair from './Pair';
 import Datepicker from './Datepicker';
+import { MarketDataProps, MarketDataState } from '../docs/Interface';
+import { maxDateFromArray, minDateFromArray } from '../docs/Functions'
+export default class MarketData extends React.Component<MarketDataProps, MarketDataState>{
+  
+  constructor(props: MarketDataProps){
+    super(props)
+    this.state={
+      maxDate: maxDateFromArray( this.props.dataArray.map(row => row.date)),
+      minDate: minDateFromArray( this.props.dataArray.map(row => row.date)),
+      pair: '',
+      providers: []
+    }
+  }
+  
+  handleDateChange = (date: Date, field: string) => {
+    this.setState({
+      [field]: date
+    } as any)
+  }
 
-export default function MarketData(props: {appState: AppState, handleChangeProviders: Function,handleDateChange: Function, handleChange: Function }){
+  handleChange = (e: FormEvent<HTMLElement>) => {
+    const { name, value } = e.target as HTMLInputElement
+    this.setState({
+      [name]: value
+    } as any)
+  }
+
+  handleChangeProviders = (providers: string[]) => {
+    this.setState({ providers })
+  }
+
+
+  render(){
     return <React.Fragment>
     <form className="market-data-form">
-      <Provider providers={props.appState.providers} handleChangeProviders={props.handleChangeProviders} />
+      <Provider providers={this.state.providers} handleChangeProviders={this.handleChangeProviders} />
 
-      <Pair pairsAvailable={[...new Set(props.appState.dataArray.map(row => row.pair)), 'All']} handleChange={props.handleChange} />
+      <Pair pairsAvailable={[...new Set(this.props.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange} />
 
-      <Datepicker title="Start" handleChange={props.handleDateChange} name={'minDefaultDate'} dateValue={props.appState.minDefaultDate} minDate={props.appState.minDefaultDate} maxDate={props.appState.maxDefaultDate}/>
+      <Datepicker title="Start" handleChange={this.handleDateChange} name={'minDefaultDate'} dateValue={this.state.minDate} minDate={this.state.minDate} maxDate={this.state.maxDate}/>
 
-      <Datepicker title="End" handleChange={props.handleDateChange} name={'maxDefaultDate'} dateValue={props.appState.maxDefaultDate} minDate={props.appState.minDefaultDate} maxDate={props.appState.maxDefaultDate} />
+      <Datepicker title="End" handleChange={this.handleDateChange} name={'maxDefaultDate'} dateValue={this.state.maxDate} minDate={this.state.minDate} maxDate={this.state.maxDate} />
 
     </form>
-    <Chart minDate={props.appState.minDefaultDate} maxDate={props.appState.maxDefaultDate} chartData={props.appState.dataArray} pair={props.appState.pair || "All"} providers={props.appState.providers} chartTitle="Price vs Time" />
+    <Chart minDate={this.state.minDate} maxDate={this.state.maxDate} chartData={this.props.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
 
-  </React.Fragment>
+  </React.Fragment>}
 }

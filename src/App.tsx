@@ -5,55 +5,28 @@ import Blotter from './components/Blotter';
 import MarketData from './components/MarketData'
 import { Container, Box } from 'bloomer'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { AppState, datasetRow } from './docs/Interface';
 
 class App extends React.Component<{}, AppState> {
 
   constructor(props: {}) {
     super(props);
     this.state = {
-      dataHeader: [],
       dataArray: [],
       isFetching: true,
-      activeSection: 'marketData',
-      providers: [],
-      pair: '',
-      maxDefaultDate: new Date(),
-      minDefaultDate: new Date()
+      activeSection: window.location.pathname.replace('/','')
     }
-  }
-
-  handleDateChange = (date: Date, field: string) => {
-    this.setState({
-      [field]: date
-    } as any)
-  }
-
-  handleChange = (e: FormEvent<HTMLElement>) => {
-    const { name, value } = e.target as any
-    this.setState({
-      [name]: value
-    } as any)
-  }
-
-  handleChangeProviders = (providers: string[]) => {
-    this.setState({ providers })
   }
 
   handleNavigation = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.target as HTMLButtonElement
     this.setState({ activeSection: name })
   }
-
-  maxDateFromArray = (dates: Date[]) => dates.reduce((a, b) => a > b ? a : b)
-
-  minDateFromArray = (dates: Date[]) => dates.reduce((a, b) => a < b ? a : b)
-
   componentDidMount() {
     fetch("/dataset.csv")
       .then(response => response.text())
       .then(data => {
         const dataArray: datasetRow[] = [];
-        const dataHeader = data.split("\n")[0].split(',');
         const table = data.split("\n").slice(1);
         table.forEach(row => {
           const columns = row.split(",");
@@ -67,11 +40,8 @@ class App extends React.Component<{}, AppState> {
         });
         this.setState((previous) => {
           return {
-            dataHeader,
             dataArray,
-            isFetching: !previous.isFetching,
-            maxDefaultDate: this.maxDateFromArray(dataArray.map(row => row.date)),
-            minDefaultDate: this.minDateFromArray(dataArray.map(row => row.date))
+            isFetching: !previous.isFetching
           };
         });
       });
@@ -85,7 +55,7 @@ class App extends React.Component<{}, AppState> {
           <Router>
             <GroupButton activeSection={this.state.activeSection} handleNavigation={this.handleNavigation} />
             <Box className="app-container">
-              <Route exact path="/" render={props => <MarketData {...props} appState={this.state} handleChange={this.handleChange} handleChangeProviders={this.handleChangeProviders} handleDateChange={this.handleDateChange} />} />
+              <Route exact path="/" render={props => <MarketData {...props} dataArray={this.state.dataArray}/>} />
               <Route path="/blotter" render={props => <Blotter {...props} appState={this.state} />} />
             </Box>
           </Router>

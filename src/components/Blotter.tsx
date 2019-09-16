@@ -1,10 +1,11 @@
 import React from 'react'
 import BlotterTable from './BlotterTable'
+import { BlotterTableProps } from '../docs/Interface';
 
-export default function Blotter(props: {appState: AppState}) {
+export default function Blotter(props: BlotterTableProps) {
     return (
         <React.Fragment>
-            <BlotterTable dataHeader={props.appState.dataHeader} dataArray={props.appState.dataArray}/>
+            <BlotterTable dataArray={props.appState.dataArray}/>
         </React.Fragment>
     )
 }

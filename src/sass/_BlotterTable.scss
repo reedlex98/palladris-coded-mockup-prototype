@@ -1,0 +1,10 @@
+.blotter-table{
+    background-color: $background-color-header;
+    color: $light-background;
+    th,td{
+        width: 150px;
+    }
+    thead th{
+        color: $table-header;
+    }
+}
