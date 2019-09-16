@@ -8,13 +8,13 @@ The goal of this project is to complete de Brick Abode front-end coded challenge
 
 ## Stack
 
-[React][2]
-[Typescript][3]
-[ReactRouter][4]
-[Charts][5]
-[Bloomer][6]
-[Bulma][7]
-[Sass][8]
+1. [React][2]
+2. [Typescript][3]
+3. [ReactRouter][4]
+4. [Charts][5]
+5. [Bloomer][6]
+6. [Bulma][7]
+7. [Sass][8]
 
 ## Run in the browser
 
