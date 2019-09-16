@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import Header from './components/Header';
 import GroupButton from './components/GroupButton'
 import Blotter from './components/Blotter';
@@ -14,7 +14,7 @@ class App extends React.Component<{}, AppState> {
     this.state = {
       dataArray: [],
       isFetching: true,
-      activeSection: window.location.pathname.replace('/','')
+      activeSection: window.location.pathname.replace('/', '')
     }
   }
 
@@ -49,18 +49,23 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Header />
         <Container className="page-container">
           <Router>
             <GroupButton activeSection={this.state.activeSection} handleNavigation={this.handleNavigation} />
             <Box className="app-container">
-              <Route exact path="/" render={props => <MarketData {...props} dataArray={this.state.dataArray}/>} />
-              <Route path="/blotter" render={props => <Blotter {...props} appState={this.state} />} />
+              {this.state.isFetching
+                ? 'Loading data...'
+                : <React.Fragment>
+                  <Route exact path="/" render={props => <MarketData {...props} dataArray={this.state.dataArray} />} />
+                  <Route path="/blotter" render={props => <Blotter {...props} appState={this.state} />} />
+                </React.Fragment>
+              }
             </Box>
           </Router>
         </Container>
-      </div>
+      </React.Fragment>
     );
   }
 }

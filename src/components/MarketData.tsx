@@ -34,7 +34,6 @@ export default class MarketData extends React.Component<MarketDataProps, MarketD
     this.setState({ providers })
   }
 
-
   render(){
     return <React.Fragment>
     <form className="market-data-form">
@@ -42,9 +41,9 @@ export default class MarketData extends React.Component<MarketDataProps, MarketD
 
       <Pair pairsAvailable={[...new Set(this.props.dataArray.map(row => row.pair)), 'All']} handleChange={this.handleChange} />
 
-      <Datepicker title="Start" handleChange={this.handleDateChange} name={'minDefaultDate'} dateValue={this.state.minDate} minDate={this.state.minDate} maxDate={this.state.maxDate}/>
+      <Datepicker title="Start" handleChange={this.handleDateChange} name={'minDate'} dateValue={this.state.minDate} minDate={this.state.minDate} maxDate={this.state.maxDate}/>
 
-      <Datepicker title="End" handleChange={this.handleDateChange} name={'maxDefaultDate'} dateValue={this.state.maxDate} minDate={this.state.minDate} maxDate={this.state.maxDate} />
+      <Datepicker title="End" handleChange={this.handleDateChange} name={'maxDate'} dateValue={this.state.maxDate} minDate={this.state.minDate} maxDate={this.state.maxDate} />
 
     </form>
     <Chart minDate={this.state.minDate} maxDate={this.state.maxDate} chartData={this.props.dataArray} pair={this.state.pair || "All"} providers={this.state.providers} chartTitle="Price vs Time" />
