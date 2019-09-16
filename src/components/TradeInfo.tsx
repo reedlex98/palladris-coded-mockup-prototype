@@ -2,6 +2,8 @@ import React from 'react'
 import { Table } from 'bloomer/lib/elements/Table';
 import TagsInputField from './TagsInputField';
 import Chart from './Chart';
+import { Button } from 'bloomer/lib/elements/Button';
+import { Link } from 'react-router-dom';
 
 export default class TradeInfo extends React.Component<any, any>{
     constructor(props: any) {
@@ -27,6 +29,9 @@ export default class TradeInfo extends React.Component<any, any>{
                     </div>
                     <form className="market-data-form">
                         <TagsInputField fieldData={this.state.providers} handleChangeTags={this.handleChangeProviders} title="Providers" />
+                        <Link to="/blotter">
+                            <Button isColor='light' onClick={() => this.props.displayToggler()}>Return</Button>
+                        </Link>
                     </form>
                     <Table className="blotter-table">
                         <thead>

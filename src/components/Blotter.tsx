@@ -60,7 +60,7 @@ export default class Blotter extends React.Component<BlotterProps, BlotterState>
                         <BlotterTable displayToggler={this.displayToggler} blotterState={this.state} dataArray={this.props.dataArray}
                         />
                     </React.Fragment>
-                    : <Route exact path="/blotter/yourBlotter" render={props => <TradeInfo {...props} />}/>
+                    : <Route exact path="/blotter/yourBlotter" render={props => <TradeInfo {...props} displayToggler={this.displayToggler} />}/>
                 }
             </React.Fragment>   
         )
