@@ -1,44 +1,57 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Palladris Coded Mockup Prototype
 
-## Available Scripts
+![Palladris Showcase Gif](./project-images/showcase1.png)
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+The goal of this project is to complete de Brick Abode front-end coded challenge. I've received some prints of how Palladris app prototype should look like and based on that I should implement my own solution.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Stack
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+[React][2]
+[Typescript][3]
+[ReactRouter][4]
+[Charts][5]
+[Bloomer][6]
+[Bulma][7]
+[Sass][8]
 
-### `npm test`
+## Run in the browser
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+It's not possible yet. It will soon be deployed
 
-### `npm run build`
+## Run Locally
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+You will need to have npm & node installed in your machine in order to run this app. If you will have thoses, just follow the next steps 
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Clone Repo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://gitlab.com/reedlex98/palladris-coded-mockup-prototype.git
+cd palladris-coded-mockup-prototype
+npm install
+```
 
-### `npm run eject`
+### Run The App For Development
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Run for Production
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm run build && npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[1]: https://chingu.io/ 'Chingu'
+[2]: https://reedlex98.github.io/mapbox-tier2-prework-project/ 'click right here'
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[2]: https://reactjs.org/ 'React'
+[3]: https://www.typescriptlang.org/ 'Typescript'
+[4]: https://www.npmjs.com/package/react-router-dom 'React Router'
+[5]: https://www.chartjs.org/ 'Charts'
+[6]: https://bloomer.js.org/ 'Bloomer'
+[7]: https://bulma.io/ 'Bulma'
+[8]: https://sass-lang.com/ 'Sass'
