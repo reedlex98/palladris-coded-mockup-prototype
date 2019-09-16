@@ -67,12 +67,14 @@ export interface BlotterState {
     maxPrice: number,
     minQty: number,
     maxQty: number,
-    isFilterCollapsed: boolean
+    isFilterCollapsed: boolean,
+    toggleDisplay:boolean
 }
 
 export interface BlotterTableProps {
     dataArray: datasetRow[],
-    blotterState: BlotterState
+    blotterState: BlotterState,
+    displayToggler: Function,
 }
 
 export interface GroupButtonProps {

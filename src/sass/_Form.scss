@@ -6,8 +6,10 @@
   position: relative;
   width: 90%;
 
-  text-transform: uppercase;
   font-size: 0.8em;
+  label{
+    text-transform: uppercase;
+  }
   .fields{
     width: 25%;
   }
