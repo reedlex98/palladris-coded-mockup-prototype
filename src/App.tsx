@@ -59,7 +59,7 @@ class App extends React.Component<{}, AppState> {
                 ? 'Loading data...'
                 : <React.Fragment>
                   <Route exact path="/" render={props => <MarketData {...props} dataArray={this.state.dataArray} />} />
-                  <Route path="/blotter" render={props => <Blotter {...props} appState={this.state} />} />
+                  <Route path="/blotter" render={props => <Blotter {...props} dataArray={this.state.dataArray} />} />
                 </React.Fragment>
               }
             </Box>

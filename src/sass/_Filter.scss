@@ -1,0 +1,40 @@
+.filter{
+    background-color: rgba(47, 80, 116, 0.7);
+    width: 80%;
+    margin-bottom: 10px;
+    position: relative;
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1, .collapseToggler{
+        position: absolute;
+        top: 10px
+    }
+    h1{
+        left: 15px;
+    }
+    .collapseToggler{
+        right: 15px;
+        transform: rotate(270deg);
+        cursor: pointer;
+        color: rgb(73, 127, 185);
+        font-size: 1.25em
+    }
+    .market-data-form{
+        margin-top: 50px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        // width: 90%;
+        .input {
+            width:150px
+
+        }
+        .react-tagsinput{
+            min-width: 320px;
+        }
+    }
+}
+.filter, form{
+    transition: all 0.5s ease-in-out;
+}

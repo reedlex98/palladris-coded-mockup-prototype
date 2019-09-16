@@ -9,8 +9,7 @@
 .app-container{
     margin-top: 15px;
     width: 75vw;
-    min-height: 85vh;
-    max-height: 85vh;
+    max-height: 73vh;
     overflow-y: scroll; 
     color: $light-background;
     background-color: $background-color-app;
@@ -18,9 +17,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: center;
 }
 
 .app-container::-webkit-scrollbar {
-    width: 0;
+    width: 8px;
+    height: 8px;
+    background-color: $background-color-header;
+} 
+
+.app-container::-webkit-scrollbar-thumb {
+    background-color: transparentize($light-background, 0.5) ;
+    border-radius: 25px;
 }

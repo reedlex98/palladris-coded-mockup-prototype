@@ -1,7 +1,7 @@
 import { datasetRow } from "./Interface";
 
 const applyFilters = (arr: datasetRow[], filter: { key: string, value: any, comparison: string }[]) => 
-     filter.reduce((acc, cur) => acc.filter(row => cur.value === 'All' ? true : cur.comparison === '===' ? row[cur.key] === cur.value : cur.comparison === ">" ? row[cur.key] > cur.value : row[cur.key] < cur.value), arr)
+     filter.reduce((acc, cur) => acc.filter(row => cur.value === 'All' ? true : cur.comparison === 'in' ? cur.value.indexOf(row[cur.key]) > -1 : cur.comparison === '===' ? row[cur.key] === cur.value : cur.comparison === ">" ? row[cur.key] > cur.value : row[cur.key] < cur.value), arr)
 
 
 const twoZeroesFormat = (timeValue: number) => timeValue > 9 ? timeValue : `0${timeValue}`

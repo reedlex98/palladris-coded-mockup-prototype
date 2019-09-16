@@ -11,7 +11,6 @@ export default class Chart extends React.Component<ChartProps, { data: {}, optio
     }
 
     render() {
-
         const data = {
             labels: uniqueArray(this.props.chartData, 'date', [{ key: 'date', value: this.props.maxDate, comparison: '<' },{ key: 'date', value: this.props.minDate, comparison: '>' },{ key: 'pair', value: this.props.pair, comparison: '===' }]),
             fontColor: "#fefefe",

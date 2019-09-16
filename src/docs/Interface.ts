@@ -32,9 +32,10 @@ export interface PairProps {
     handleChange: (event: FormEvent<HTMLElement>) => void
 }
 
-export interface ProviderProps {
-    providers: string[],
-    handleChangeProviders: Function
+export interface TagsInputFieldProps {
+    fieldData: string[],
+    title: string,
+    handleChangeTags: Function
 }
 
 export interface DatepickerProps {
@@ -45,13 +46,33 @@ export interface DatepickerProps {
     minDate: Date,
     maxDate: Date
 }
+export interface FilterProps{
+    functions: {
+        handleChange: (event: FormEvent<HTMLElement>) => void,
+        handleChangeTags: Function,
+        handleChangeDate: Function,
+        handleCollapse: Function
+    }
+    blotterState: BlotterState
+}
 
 export interface BlotterProps {
     dataArray: datasetRow[]
 }
+export interface BlotterState {
+    pairs: string[],
+    maxDate: Date,
+    minDate: Date,
+    minPrice: number,
+    maxPrice: number,
+    minQty: number,
+    maxQty: number,
+    isFilterCollapsed: boolean
+}
 
 export interface BlotterTableProps {
-    appState: AppState
+    dataArray: datasetRow[],
+    blotterState: BlotterState
 }
 
 export interface GroupButtonProps {
