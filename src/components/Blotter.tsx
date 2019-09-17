@@ -2,14 +2,15 @@ import React, { FormEvent } from 'react'
 import BlotterTable from './BlotterTable'
 import Filter from './Filter'
 import { BlotterProps, BlotterState } from '../docs/Interface';
-import { maxDateFromArray, minDateFromArray } from '../docs/Functions';
+import { maxDateFromArray, minDateFromArray, uniqueArray } from '../docs/Functions';
 import { Route } from 'react-router';
 import TradeInfo from './TradeInfo';
+
 export default class Blotter extends React.Component<BlotterProps, BlotterState> {
     constructor(props: BlotterProps) {
         super(props)
         this.state = {
-            pairs: [...new Set(this.props.dataArray.map(row => row.pair))],
+            pairs: uniqueArray(this.props.dataArray, 'pair') as string[],
             maxDate: maxDateFromArray(this.props.dataArray.map(row => row.date)),
             minDate: minDateFromArray(this.props.dataArray.map(row => row.date)),
             minPrice: 0,

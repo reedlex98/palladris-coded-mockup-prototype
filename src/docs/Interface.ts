@@ -59,6 +59,24 @@ export interface FilterProps{
 export interface BlotterProps {
     dataArray: datasetRow[]
 }
+export interface TradeInfoProps{
+    displayToggler : Function,
+    location: {
+        state: {
+            date: Date,
+            pair: string,
+            price: number,
+            qtd: number,
+            dataset: datasetRow[],
+            minDate: Date,
+            maxDate: Date
+        }
+    }
+}
+
+export interface TradeInfoState{
+    providers: string[]
+}
 export interface BlotterState {
     pairs: string[],
     maxDate: Date,

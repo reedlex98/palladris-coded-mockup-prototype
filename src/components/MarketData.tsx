@@ -4,7 +4,7 @@ import Chart from './Chart';
 import Pair from './Pair';
 import Datepicker from './Datepicker';
 import { MarketDataProps, MarketDataState } from '../docs/Interface';
-import { maxDateFromArray, minDateFromArray } from '../docs/Functions'
+import { maxDateFromArray, minDateFromArray, uniqueArray } from '../docs/Functions'
 export default class MarketData extends React.Component<MarketDataProps, MarketDataState>{
   
   constructor(props: MarketDataProps){
@@ -13,7 +13,7 @@ export default class MarketData extends React.Component<MarketDataProps, MarketD
       maxDate: maxDateFromArray( this.props.dataArray.map(row => row.date)),
       minDate: minDateFromArray( this.props.dataArray.map(row => row.date)),
       pair: 'All',
-      providers: [...new Set(this.props.dataArray.map(row => row.provider))]
+      providers: uniqueArray(this.props.dataArray, 'provider') as string[]
     }
   }
   

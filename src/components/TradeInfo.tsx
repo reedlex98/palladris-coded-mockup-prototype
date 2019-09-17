@@ -1,18 +1,18 @@
 import React from 'react'
-import { Table } from 'bloomer/lib/elements/Table';
 import TagsInputField from './TagsInputField';
 import Chart from './Chart';
-import { Button } from 'bloomer/lib/elements/Button';
+import { Button, Table } from 'bloomer';
 import { Link } from 'react-router-dom';
+import { TradeInfoProps, TradeInfoState } from '../docs/Interface';
+import { uniqueArray } from '../docs/Functions';
 
-export default class TradeInfo extends React.Component<any, any>{
-    constructor(props: any) {
+export default class TradeInfo extends React.Component<TradeInfoProps, TradeInfoState>{
+    constructor(props: TradeInfoProps) {
         super(props)
         this.state = {
-            providers: []
+            providers:  uniqueArray(this.props.location.state.dataset, 'provider') as string[]
         }
     }
-
 
     handleChangeProviders = (providers: string[]) => {
         this.setState({ providers })
