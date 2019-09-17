@@ -27,7 +27,7 @@ const BlotterTable = (props: BlotterTableProps) => {
                         <td>{row.pair}</td>
                         <td>{row.price}</td>
                         <td>{row.qtd}</td>
-                        <td onClick={() => props.displayToggler()}> <Link to={{pathname:"/blotter/yourBlotter",state: {date:row.date, pair: row.pair, price: row.price, qtd: row.qtd, dataset: props.dataArray, minDate, maxDate}}}><img src={chartIcon} alt="chart icon"/></Link></td>
+                        <td onClick={() => props.displayToggler()}> <Link to={{pathname:"/blotter/tradeInfo",state: {date:row.date, pair: row.pair, price: row.price, qtd: row.qtd, dataset: props.dataArray, minDate, maxDate}}}><img src={chartIcon} alt="chart icon"/></Link></td>
                     </tr>))
                 }
             </tbody>
