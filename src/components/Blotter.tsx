@@ -9,13 +9,13 @@ export default class Blotter extends React.Component<BlotterProps, BlotterState>
     constructor(props: BlotterProps) {
         super(props)
         this.state = {
-            pairs: [],
+            pairs: [...new Set(this.props.dataArray.map(row => row.pair))],
             maxDate: maxDateFromArray(this.props.dataArray.map(row => row.date)),
             minDate: minDateFromArray(this.props.dataArray.map(row => row.date)),
             minPrice: 0,
-            maxPrice: 0,
+            maxPrice: Math.max(...this.props.dataArray.map(row => row.price)),
             minQty: 0,
-            maxQty: 0,
+            maxQty: Math.max(...this.props.dataArray.map(row => row.qtd)),
             isFilterCollapsed: true,
             toggleDisplay: true
         }

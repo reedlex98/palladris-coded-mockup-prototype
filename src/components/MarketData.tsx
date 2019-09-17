@@ -13,7 +13,7 @@ export default class MarketData extends React.Component<MarketDataProps, MarketD
       maxDate: maxDateFromArray( this.props.dataArray.map(row => row.date)),
       minDate: minDateFromArray( this.props.dataArray.map(row => row.date)),
       pair: 'All',
-      providers: []
+      providers: [...new Set(this.props.dataArray.map(row => row.provider))]
     }
   }
   
