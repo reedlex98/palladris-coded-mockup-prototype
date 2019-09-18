@@ -18,7 +18,7 @@ The goal of this project is to complete de Brick Abode front-end coded challenge
 
 ## Run in the browser
 
-You just need a modern browser with Javascript features enable if you want to run this app. If you have those requirements, just [click right here][1] and then you will be running the app.
+You just need a modern browser with Javascript features enabled if you want to run this app. If you have those requirements, just [click right here][1] and then you will be running the app.
 
 ## Run Locally
 
