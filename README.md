@@ -4,7 +4,7 @@
 
 ## Overview
 
-The goal of this project is to complete de Brick Abode front-end coded challenge. I've received some prints of how Palladris app prototype should look like and based on that I should implement my own solution.
+The goal of this project is to complete the Brick Abode front-end coded challenge. I've received some prints of how Palladris app prototype should look like and based on that I should implement my own solution.
 
 ## Stack
 
