@@ -18,7 +18,7 @@ The goal of this project is to complete de Brick Abode front-end coded challenge
 
 ## Run in the browser
 
-It's not possible yet. It will soon be deployed
+You just need a modern browser with Javascript features enable if you want to run this app. If you have those requirements, just [click right here][1] and then you will be running the app.
 
 ## Run Locally
 
@@ -43,11 +43,7 @@ npm start
 ```bash
 npm run build && npm start
 ```
-
-[1]: https://chingu.io/ 'Chingu'
-[2]: https://reedlex98.github.io/mapbox-tier2-prework-project/ 'click right here'
-
-
+[1]: https://heuristic-jepsen-0f2804.netlify.com/ 'Deploy'
 [2]: https://reactjs.org/ 'React'
 [3]: https://www.typescriptlang.org/ 'Typescript'
 [4]: https://www.npmjs.com/package/react-router-dom 'React Router'
